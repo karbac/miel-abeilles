@@ -37,7 +37,8 @@ HIVECOLOR = (0,0,255)
 WIDTH = 825
 RATIO = WIDTH/1000
 #SCREEN = pygame.display.set_mode((WIDTH,WIDTH))
-PHASE = 25
+PHASE = 1
+
 
 #Initialisation
 roster = []
@@ -48,17 +49,17 @@ for i in range(100):
 hive = Hive(roster)
 
 
-
-scores = []
-for i in range(500):
-    scores.append(hive.get_best_score())
-    if i >= PHASE and scores[i] == scores[i-PHASE]:
-        hive.evolve(mutation=True)
-        print(f"mutate @ {i}")
-    else: hive.evolve()
+topscores = []
+averages = []
+for i in range(200):
+    topscores.append(hive.get_best_score())
+    hive.evolve(mutation=True) if i > PHASE and topscores[i] == topscores[i-PHASE] else hive.evolve()
         
-print(scores[-1])
-plt.plot(scores)
+print(topscores[-1]/51)
+
+plt.plot(topscores)
+
+#plt.plot(averages)
 plt.show()
 
 
