@@ -38,7 +38,7 @@ for x,y in zip(df['x'] , df['y']):
 
 
 
-PHASE = 100
+PHASE = 9
 
 #Initialisation
 roster = []
@@ -52,12 +52,12 @@ hive = Hive(roster)
 topscores = []
 averages = []
 
-for i in range(30):
-    print(i)
-    topscores.append(hive.get_best_score())
-    hive.evolve(mutation=True) if i > PHASE and topscores[i] == topscores[i-PHASE] else hive.evolve()
+for i in range(40000):
+    if i%1000==0: print(i)
+    topscores.append(hive.get_best_score()/51)
+    hive.evolve(mutation=True)
         
-print(topscores[-1]/51)
+print(topscores[-1])
 
 plt.plot(topscores)
 
