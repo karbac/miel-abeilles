@@ -55,7 +55,7 @@ Cet algorithme est de complexité temporelle **O(N)** , **N** étant le nombre d
 En effet, l'algorithme d'évolution s'éxécute à une vitesse qui ne dépend pas de N.  
 
 Le score est décroissant en fonction du nombre de générations, et il décroît de plus en plus lentement jusqu'à finir par stagner.  
-Empiriquement, on observe que la score idéal se situe entre **146** et **147**.    
+Empiriquement, on observe que le score idéal se situe entre **146** et **147**.    
 Théoriquement, le score devrait décroître jusqu'à atteindre le score idéal, mais en pratique, le score idéal est rarement atteint, car cela nécéssiterait de simuler un trop grand nombre de générations.  
 Cependant, pour ce modèle, on obtient des résultats assez proches et satisfaisants, en simulant entre **25000** et **40000** générations, point où le score commence à stagner longuement.  
 Le temps d'éxécution pour une simulation de 25000 générations est d'environ **4 minutes**, et pour 40000 générations, il est d'environ **6 à 7 minutes**.  
