@@ -5,9 +5,9 @@ import time
 from beehive import * 
 pygame.init()
 
-def show_course(bee):
-    BEEHIVE = (500,500)
-    XB , YB = BEEHIVE
+def display_route(bee):
+    HQ = (500,500)
+    XB , YB = HQ
     BCOLOR = (255,255,0)
     HIVECOLOR = (0,0,255)
     WIDTH = 825
@@ -19,16 +19,17 @@ def show_course(bee):
         pygame.draw.circle(SCREEN, BCOLOR , (x*RATIO,y*RATIO) , 4)
     pygame.display.flip()
     
-    genome = bee.genome
-    pygame.draw.line(SCREEN, HIVECOLOR, (XB*RATIO,YB*RATIO), (genome[0][0]*RATIO,genome[0][1]*RATIO))
-    for i,flower in enumerate(genome):
+    route = bee.route
+    pygame.draw.line(SCREEN, HIVECOLOR, (XB*RATIO,YB*RATIO), (route[0][0]*RATIO,route[0][1]*RATIO))
+    for i,flower in enumerate(route):
         if i==0: continue
-        pygame.draw.line(SCREEN, BCOLOR, ((genome[i-1][0]*RATIO,genome[i-1][1]*RATIO)) , (flower[0]*RATIO,flower[1]*RATIO))
+        pygame.draw.line(SCREEN, BCOLOR, ((route[i-1][0]*RATIO,route[i-1][1]*RATIO)) , (flower[0]*RATIO,flower[1]*RATIO))
         pygame.display.flip()
         time.sleep(0.1)
     
-    pygame.draw.line(SCREEN, HIVECOLOR, ((genome[-1][0]*RATIO,genome[-1][1]*RATIO)) , (XB*RATIO,YB*RATIO) )
+    pygame.draw.line(SCREEN, HIVECOLOR, ((route[-1][0]*RATIO,route[-1][1]*RATIO)) , (XB*RATIO,YB*RATIO) )
     pygame.display.flip()
+    pygame.image.save(SCREEN, f"files/{round(topscore,3)}score_route.png")
 
     
 df = pd.read_excel('field.xlsx')
@@ -37,8 +38,6 @@ for x,y in zip(df['x'] , df['y']):
     FIELD.append((x,y))
 
 
-
-PHASE = 9
 
 #Initialisation
 roster = []
@@ -50,20 +49,23 @@ hive = Hive(roster)
 
 
 topscores = []
-averages = []
 
-for i in range(40000):
-    if i%1000==0: print(i)
-    topscores.append(hive.get_best_score()/51)
-    hive.evolve(mutation=True)
-        
-print(topscores[-1])
+start = time.time()
+GENS = 50000
+for i in range(GENS):
+    topscores.append(hive.get_best_score())
+    hive.evolve()
+end = time.time()
+print(end-start)
+topscore = topscores[-1]
+print(topscore)
 
 plt.plot(topscores)
-
-#plt.plot(averages)
+plt.xlabel("Nombre de générations")
+plt.ylabel("Meilleur score")
+plt.savefig(f"files/{GENS}gens_{round(topscore,3)}score_fig.png")
 plt.show()
 
-show_course(hive.get_best_bee())
+display_route(hive.get_best_bee())
 
 
