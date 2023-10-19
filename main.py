@@ -8,8 +8,7 @@ pygame.init()
 #Affiche la route de l'abeille avec pygame
 def display_route(bee):
     #Paramètres
-    HQ = (500,500)
-    XB , YB = HQ
+    XB , YB = bee.HQ
     BCOLOR = (255,255,0)
     HIVECOLOR = (0,0,255)
     WIDTH = 825 #
