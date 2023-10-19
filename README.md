@@ -3,8 +3,12 @@ Nous mettons en scène des abeilles qui doivent aller butiner des fleurs.
 Les abeilles démarrent de la ruche, visitent les fleurs une à une, puis retournent à la ruche.    
 Les 50 fleurs à butiner sont représentées par un tuple de coordonnées (x,y), qui nous est fourni - voir ***field.xlsx***  
 Une abeille est définie par l'ordre dans lequel elle ira butiner les fleurs. On représentera cela par une liste de 50 fleurs que l'on appelera **route**.  
-L'objectif est de trouver une route qui optimise le temps de parcours des abeilles.   
-On se propose de résoudre ce problème avec un **algorithme génétique**.   
+L'objectif est de trouver une route qui optimise le temps de parcours des abeilles.  
+
+Pour un champ de 50 fleurs, il existe **50!** routes différentes, soit plus de **10<sup>64</sup>**.  
+On ne peut commencer à concevoir une résolution par force brute, tant ce nombre est astronomique.   
+
+Par conséquent, nous nous proposons de résoudre ce problème avec une autre méthode : Un **algorithme génétique**.    
 
 # ALGORITHME GENETIQUE
 Nous démarrons avec une ruche de 100 abeilles, ayant chacune une route aléatoire.  
@@ -46,21 +50,20 @@ La classe ***Bee*** représente une abeille. La classe ***Hive*** représente la
 Le programme principal. Prend en entrée un nombre de générations à simuler.  
 Génère le graphique de l'évolution du score de la meilleure abeille de chaque génération, en fonction du nombre de générations.    
 Génère également l'affichage de la route de l'abeille la plus performante de la dernière génération.  
-Sur le rendu graphique, la ruche est représentée en bleu, et les fleurs sont représentées par des points verts.
+Sur l'affichage de la route, la ruche est représentée en bleu, et les fleurs sont représentées par des points verts.
 ## Dossier *files*
 Contient les graphiques et les affichages de routes générés, au format png.
 
 # PERFORMANCE & NOTES
 Cet algorithme est de complexité temporelle **O(N)** , **N** étant le nombre de générations à simuler.   
-En effet, l'algorithme d'évolution s'éxécute à une vitesse qui ne dépend pas de N.  
+En effet, l'algorithme d'évolution s'éxécute à une vitesse qui ne dépend pas de N. Donc, doubler l'entrée N revient à doubler le temps d'éxécution.   
 
-Le score est décroissant en fonction du nombre de générations, et il décroît de plus en plus lentement jusqu'à finir par stagner.  
+Le score est décroissant en fonction du nombre de générations, et il décroît de plus en plus lentement jusqu'à finir par stagner longuement.  
 Empiriquement, on observe que le score idéal se situe entre **146** et **147**.    
 Théoriquement, le score devrait décroître jusqu'à atteindre le score idéal, mais en pratique, l'atteinte du score idéal peut nécéssiter que l'algorithme tourne pendant des heures.  
 Cependant, pour ce modèle, on obtient des résultats assez proches et satisfaisants, en simulant entre **25000** et **40000** générations, point où le score commence à stagner longuement.  
 Le temps d'éxécution pour une simulation de 25000 générations est d'environ **4 minutes**, et pour 40000 générations, il est d'environ **6 à 7 minutes**.  
 Il conviendrait d'essayer différents modèles afin de trouver une solution plus performante. Il suffit pour cela de modifier la fonction de sélection, de croisement et/ou de mutation.  
-Ceci est en tous cas la meilleure solution que j'ai pu trouver.  
 
 # TERMINOLOGIE DE CODE
 ## Classe ***Bee***
